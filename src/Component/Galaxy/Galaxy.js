@@ -3,21 +3,13 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import planetData from "../../planetData";
-
+import './Galaxy.css'
 
 
 export default function Galaxy() {
   return (
-    <>
-      <a
-        href="https://medium.com/geekculture/build-3d-apps-with-react-animated-solar-system-part-2-1186a5c8bd1"
-        className="article-link"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Step by step guide to how I build this
-      </a>
-      <Canvas camera={{ position: [0, 20, 25], fov: 45 }}>
+    <div className="galaxy">
+      <Canvas camera={{ position: [0, 30, 15], fov: 45 }}>
       
         <Sun />
         {planetData.map((planet) => (
@@ -26,15 +18,15 @@ export default function Galaxy() {
         <Lights />
         <OrbitControls />
      
-    </Canvas>
-    </>
+     </Canvas>
+    </div>
   );
 }
 function Sun() {
   return (
-    <mesh>
-      <sphereGeometry args={[2.5, 32, 32]} />
-      <meshStandardMaterial color="#FFE600" />
+    <mesh >
+      <sphereGeometry args={[2.5, 32, 32]}  />
+      <meshStandardMaterial color="#FFE600" transparent />
     </mesh>
   );
 }
@@ -54,8 +46,8 @@ function Planet({ planet: { color, xRadius, zRadius, size, speed, offset, rotati
   return (
     <>
       <mesh ref={planetRef}>
-        <sphereGeometry args={[size, 32, 32]} />
-        <meshStandardMaterial color={color} />
+        <sphereGeometry args={[size, 32, 32]}  />
+        <meshStandardMaterial color={color} flat={true}/>
       </mesh>
       <Ecliptic xRadius={xRadius} zRadius={zRadius} />
     </>
@@ -65,7 +57,7 @@ function Planet({ planet: { color, xRadius, zRadius, size, speed, offset, rotati
 function Lights() {
   return (
     <>
-      <ambientLight />
+      <ambientLight intensity={1}/>
       <pointLight position={[0, 0, 0]} />
     </>
   );
@@ -85,7 +77,7 @@ function Ecliptic({ xRadius = 1, zRadius = 1 }) {
   const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
   return (
     <line geometry={lineGeometry}>
-      <lineBasicMaterial attach="material" color="#BFBBDA" linewidth={10} />
+      <lineBasicMaterial attach="material" color="#BFBBDA" linewidth={1} />
     </line>
   );
 }

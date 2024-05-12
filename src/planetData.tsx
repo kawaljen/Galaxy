@@ -1,4 +1,4 @@
-const random = (a, b) => a + Math.random() * b;
+const random = (a:number, b:number) => a + Math.random() * b;
 
 const planetData = [];
 const totalPlanets = 9;
@@ -6,7 +6,7 @@ const totalPlanets = 9;
 let index = 0;
 planetData.push({
   id: index,
-  color: "#C2D0FF",
+  color: "#00ffd0",
   xRadius: (index + 1.5) * 4,
   zRadius: (index + 1.5) * 2,
   size: random(0.5, 1),
@@ -18,7 +18,7 @@ planetData.push({
 index++;
 planetData.push({
   id: index,
-  color: "#FF9900",
+  color: "#ff5100",
   xRadius: (index + 1.5) * 4,
   zRadius: (index + 1.5) * 2,
   size: random(0.5, 1),
@@ -30,7 +30,7 @@ planetData.push({
 index++;
 planetData.push({
   id: index,
-  color: "#00A3FF",
+  color: "#ff00a6",
   xRadius: (index + 1.5) * 4,
   zRadius: (index + 1.5) * 2,
   size: random(0.5, 1),
