@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
 using api.Dtos;
+using api.Dtos.Planet;
 using api.Interfaces;
 using api.Mappers;
 using Microsoft.AspNetCore.Mvc;
@@ -34,8 +35,7 @@ namespace api.Controller
         public async Task<IActionResult> GetById([FromRoute]int id){
             var planet  = await _planetRepo.GetByIdAsync(id);
 
-
-             return planet== null ? NotFound() : Ok(planet.ToPlanetDto());
+            return planet== null ? NotFound() : Ok(planet.ToPlanetDto());
 
         }
         [HttpPost]
@@ -45,6 +45,14 @@ namespace api.Controller
             await _planetRepo.CreateAsync(planetModel);
 
             return CreatedAtAction(nameof(GetById), new {id = planetModel.Id}, planetModel.ToPlanetDto());
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdatePlanetRequestDto updateDto)
+        {
+            var planet = await _planetRepo.UpdateAsync(id, updateDto);
+            return planet== null ? NotFound() : Ok(planet);
         }
     }
 }
