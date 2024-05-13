@@ -6,6 +6,7 @@ import NavBar from './Component/NavBar/NavBar';
 import Galaxy from './Component/Galaxy/Galaxy';
 import FormPage from './Pages/FormPage/FormPage';
 import "./MilkyWay.scss"
+import Tribune from './Component/Tribune/Tribune';
 
 function App() {    
   const stars = [];
@@ -26,6 +27,7 @@ function App() {
       <Outlet/>
       <Galaxy/>
       <FormPage/>
+      <Tribune/>
     </div>
   );
 }

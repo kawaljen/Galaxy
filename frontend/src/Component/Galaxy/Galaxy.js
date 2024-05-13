@@ -33,6 +33,7 @@ function Sun() {
 function Planet({ planet: { color, xRadius, zRadius, size, speed, offset, rotationSpeed, name  } }) {
   const planetRef = React.useRef();
 
+  console.log(xRadius+' '+ zRadius+' '+ size+' '+ speed+' '+ offset+' '+ rotationSpeed);
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime() *speed + offset;
     const x = xRadius * Math.sin(t);
