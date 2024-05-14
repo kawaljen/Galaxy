@@ -4,51 +4,22 @@ import'./PlanetForm.css'
 
 
 interface Props  {
-    //planet : Planet;
+    handleChange:(e:ChangeEvent<HTMLInputElement>) =>void;
+    errors:Errors;
     planetCreate: (e:SyntheticEvent)=>void;
+    planet:Planet;
 }
-const PlanetForm : React.FC<Props> = ({ planetCreate}: Props):JSX.Element => {
-  const [toggle, setToggle] = useState(false)
-  const validate = (newInputs: Inputs): Errors => {
-    const newErrors: Errors = {}
-
-    if (newInputs.name.length>10) {
-        newErrors.name = "Too long"
-    }
-    if (newInputs.size>10 ) {
-        newErrors.size = "Too big"
-    }
-
-    return newErrors
-  }
-  const [planet, setPlanet] = useState< Planet>({
-    id : 0,
-    color : "",
-    xRadius :0,
-    zRadius:0,
-    size:0,
-    speed:1,
-    offset:0,
-    rotationSpeed:0,
-    name:""
-      });
-    const [errors, setErrors] = useState<Errors>(validate(planet))
-    const [touched, setTouched] = useState<Touched>({})
-
-  
-    const handleChange= (e:ChangeEvent<HTMLInputElement>)=>{
-      const {name, value} = e.target;
-      setPlanet(prevData => ({...prevData, [name]: value}));
-      setErrors(validate({ ...planet, [name]: value }))
-    }
+const PlanetForm : React.FC<Props> = ({ planetCreate, errors, planet, handleChange}: Props):JSX.Element => {
+  const [toggle, setToggle] = useState(true)
+  const [touched, setTouched] = useState<Touched>({})
 
   return (
     <div className='planetform'>
-      <button 
+      {/* <button 
             onClick={() => setToggle(!toggle)} 
             >
           Add a planet
-      </button>
+      </button> */}
       {toggle && (
         <form onSubmit={planetCreate}>
           <h2>Add a planet</h2>

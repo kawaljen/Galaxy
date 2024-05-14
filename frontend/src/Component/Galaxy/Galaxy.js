@@ -6,15 +6,19 @@ import planetData from "../../planetData";
 import './Galaxy.css'
 
 
-export default function Galaxy() {
+const Galaxy = (planet) => {
+  console.log(planetData);
   return (
     <div className="galaxy">
       <Canvas camera={{ position: [0, 30, 15], fov: 45 }}>
       
         <Sun />
-        {planetData.map((planet) => (
-          <Planet planet={planet} key={planet.id} />
-        ))}
+        { 
+            planet.planet.map((plt) => (
+              <Planet planet={plt} key={plt.id} />
+            ))
+         
+          }
         <Lights />
         <OrbitControls />
      
@@ -22,6 +26,10 @@ export default function Galaxy() {
     </div>
   );
 }
+
+export default Galaxy
+
+
 function Sun() {
   return (
     <mesh >
@@ -30,25 +38,34 @@ function Sun() {
     </mesh>
   );
 }
-function Planet({ planet: { color, xRadius, zRadius, size, speed, offset, rotationSpeed, name  } }) {
+function Planet({ planet: { color, id, name } }) {
+
+
   const planetRef = React.useRef();
-
+  const random = (a, b) => a + Math.random() * b;
+  const xRadius= (id + 1.5) * 4;
+  const zRadius= (id + 1.5) * 2;
+  const size= random(0.5, 0.2);
+  const speed=  random(0.5, 0.2);
+  const offset= random(0, Math.PI * 2)
+  const rotationSpeed = random(0, Math.PI * 2)
+  
   //console.log(xRadius+' '+ zRadius+' '+ size+' '+ speed+' '+ offset+' '+ rotationSpeed);
-  useFrame(({ clock }) => {
-    const t = clock.getElapsedTime() *speed + offset;
-    const x = xRadius * Math.sin(t);
-    const z = zRadius * Math.cos(t);
-    planetRef.current.position.x = x;
-    planetRef.current.position.z = z;
-    planetRef.current.rotation.y += rotationSpeed;
-
-  });
+    useFrame(({ clock }) => {
+      const t = clock.getElapsedTime() *speed + offset;
+      const x = xRadius * Math.sin(t);
+      const z = zRadius * Math.cos(t);
+      planetRef.current.position.x = x;
+      planetRef.current.position.z = z;
+      planetRef.current.rotation.y += rotationSpeed;
+  
+    });
 
   return (
     <>
       <mesh ref={planetRef}>
         <sphereGeometry args={[size, 32, 32]}  />
-        <meshStandardMaterial color={color} flat={true}/>
+        <meshStandardMaterial color={"#"+color}/>
       </mesh>
       <Ecliptic xRadius={xRadius} zRadius={zRadius} />
     </>
