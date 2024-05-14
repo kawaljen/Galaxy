@@ -23,7 +23,7 @@ namespace api.Controller
         public async Task<IActionResult> GettAll()
         {
             var tribunes = await _tribuneRepo.GetAllAsync();
-            var tribunesDto = tribunes.Select(s=>s.ToString());
+            var tribunesDto = tribunes.Select(s=>s.ToTribuneArticleDto());
 
             return tribunesDto== null ? NotFound() : Ok(tribunesDto);
         }
