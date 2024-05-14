@@ -13,12 +13,12 @@ namespace api.Dtos.Planet
 
         public string Color { get; set; } = string.Empty;
 
-        // public int XRadius { get; set; }
-        // public int ZRadius { get; set; }
-        public int Size { get; set; }
+        // public decimal XRadius { get; set; }
+        // public decimal ZRadius { get; set; }
+        public decimal Size { get; set; }
 
-        public int Speed { get; set; }
-        // public int Offset { get; set; }
-        // public int RotationSpeed { get; set; } 
+        public decimal Speed { get; set; }
+        // public decimal Offset { get; set; }
+        // public decimal RotationSpeed { get; set; } 
     }
 }
