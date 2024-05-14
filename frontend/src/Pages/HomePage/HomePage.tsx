@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import Tribune from '../../Component/Tribune/Tribune';
+import Tribune from '../../Component/Tribune/TribuneList';
 import { Planet } from '../../Planet.d';
 import { getPlanets } from '../../Services/PlanetService';
 import Galaxy from '../../Component/Galaxy/Galaxy';
@@ -24,11 +24,10 @@ const HomePage = (props: Props) => {
           }
         }
         getResult();
-  },[])
+    },[])
   return (
   <>
       <Galaxy planet={planet}/>
-      <Tribune/>
   </>
   );
   

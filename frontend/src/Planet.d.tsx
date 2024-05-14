@@ -21,3 +21,12 @@ export interface Inputs{
 export type Errors = Partial<Record<keyof Inputs, string>>
 
 export type Touched = Partial<Record<keyof Inputs, boolean>>
+
+
+export interface TribuneArticleType{
+  id : number|0,
+  title :string,
+  content :string,
+  name:string |"planet",
+  //CreateOn
+}
