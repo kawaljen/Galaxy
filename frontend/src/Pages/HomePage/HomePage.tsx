@@ -26,9 +26,11 @@ const HomePage = (props: Props) => {
         getResult();
     },[])
   return (
-  <>
-      <Galaxy planet={planet}/>
-  </>
+      <>
+          {serverError && <p>serverError..</p>}
+          <Galaxy planet={planet}/>
+
+      </>
   );
   
 }

@@ -71,7 +71,8 @@ const FormPage = (props: Props) => {
 
   return (
     <>
-    <PlanetForm planetCreate={planetCreate} handleChange={handleChange} errors={errors} planet={planet}/>
+      {serverError && <p>serverError..</p>}
+      <PlanetForm planetCreate={planetCreate} handleChange={handleChange} errors={errors} planet={planet}/>
     </>
     
   )

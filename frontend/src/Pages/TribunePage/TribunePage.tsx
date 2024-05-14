@@ -26,7 +26,10 @@ const TribunePage = (props: Props) => {
 
 
   return (
-    <TribuneList tribuneArticle={tribuneArticle} />
+    <>
+         {serverError && <p>serverError..</p>}
+         <TribuneList tribuneArticle={tribuneArticle} />
+    </>
   )
 }
 
