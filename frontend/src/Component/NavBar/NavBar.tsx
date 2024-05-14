@@ -8,6 +8,7 @@ const NavBar = (props: Props) => {
         <a href="/">Home</a>
         <a href="/form">Form</a>
         <a href="/tribune">Tribune</a>
+        <a href="/newton">Newton</a>
     </div>
   )
 }

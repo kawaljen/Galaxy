@@ -30,3 +30,4 @@ export interface TribuneArticleType{
   name:string |"planet",
   //CreateOn
 }
+
