@@ -21,6 +21,9 @@ namespace api.Models
         public decimal Offset { get; set; }
         public decimal RotationSpeed { get; set; }
 
+        public bool hasLife { get; set; }
+        public bool hasAMoon{ get; set; }
+
         public List<TribuneArticle> TribuneArticle { get; set; } = new List<TribuneArticle>();
   
     }

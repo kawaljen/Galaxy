@@ -22,6 +22,14 @@ namespace api.Repository
 
         public async Task<Planet> CreateAsync(Planet planetModel)
         {
+            Random rnd = new Random();
+
+            planetModel.XRadius= (decimal)((rnd.Next(0,10) + 1.5) * 4);
+            planetModel.ZRadius = (decimal)(rnd.Next(0,10) + 1.5) * 2;
+            planetModel.Offset = rnd.Next(0, (int)(Math.PI * 2));
+            planetModel.RotationSpeed = rnd.Next(0, (int)(Math.PI * 2)); //TODO
+
+
             await _context.Planet.AddAsync(planetModel);
             await _context.SaveChangesAsync();
             return planetModel;
