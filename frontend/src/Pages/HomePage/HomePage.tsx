@@ -6,12 +6,11 @@ import { getPlanets } from '../../Services/PlanetService';
 import Galaxy from '../../Component/Galaxy/Galaxy';
 
 
-
 interface Props  {}
 
 const HomePage = (props: Props) => {
-    const [planet, setPlanet] =useState<Planet[]>([]); //useState<Planet[]>([]);
-    const [serverError, setServerError] = useState<string|null>(null);//useState<string|null>(null);
+    const [planet, setPlanet] =useState<Planet[]>([]); 
+    const [serverError, setServerError] = useState<string|null>(null);
     useEffect(()=>{
       const getResult =  async() =>{
           const result = await getPlanets()
@@ -28,7 +27,7 @@ const HomePage = (props: Props) => {
   return (
       <>
           {serverError && <p>serverError..</p>}
-          <Galaxy planet={planet}/>
+          <Galaxy planet={planet} />
 
       </>
   );
