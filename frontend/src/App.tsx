@@ -5,19 +5,20 @@ import NavBar from './Component/NavBar/NavBar';
 import "./MilkyWay.scss"
 import React from 'react';
 
+type Props = {}
 
-function App() {    
-  const stars = [];
+const App = (props: Props) => {
+
+  const stars : React.ReactElement[] = [];
   for(let i=0; i<300; i++){
       stars.push(<div className='star'></div>)
   }
   
   
-  const milkyWay = [];
+  const milkyWay : React.ReactElement[] = [];
   for(let i=0; i<300; i++){
       milkyWay.push(<div className='star'></div>)
   }
-
 
   return (
     <div className="App container container-MilkyWay">
@@ -26,7 +27,10 @@ function App() {
       <NavBar/>
       <Outlet/>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
+
+
+
