@@ -8,8 +8,9 @@ namespace api.Dtos.Tribune
 {
     public class TribuneArticleDto
     {
-        [Required]
         public int Id { get; set; }
+         public int? PlanetId { get; set; }
+         
         [Required]
         [MinLength(5, ErrorMessage ="Must be min 5 chararcters")]
         [MaxLength(15, ErrorMessage ="Must be max 15 chararcters")]
@@ -19,8 +20,6 @@ namespace api.Dtos.Tribune
         [MinLength(5, ErrorMessage ="Must be min 5 chararcters")]
         [MaxLength(15, ErrorMessage ="Must be max 150 chararcters")]
         public string Content{ get; set; } = string.Empty;
-        
-        [Required]
         public DateTime CreateOn { get; set; }= DateTime.Now;
     }
 }

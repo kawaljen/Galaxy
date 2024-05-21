@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Dtos.Tribune;
+using api.Helpers;
 using api.Interfaces;
 using api.Mappers;
 using Microsoft.AspNetCore.Mvc;
@@ -20,16 +21,17 @@ namespace api.Controller
             _tribuneRepo = tribuneRepo;
         }
         [HttpGet]
-        public async Task<IActionResult> GettAll()
+        public async Task<IActionResult> GettAll([FromQuery] QueryObject query)
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var tribunes = await _tribuneRepo.GetAllAsync();
+            var tribunes = await _tribuneRepo.GetAllAsync(query);
             var tribunesDto = tribunes.Select(s=>s.ToTribuneArticleDto());
 
             return tribunesDto== null ? NotFound() : Ok(tribunesDto);
         }
+    
 
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute]int id)
@@ -39,7 +41,7 @@ namespace api.Controller
             var tribune  = await _tribuneRepo.GetByIdAsync(id);
              return tribune== null ? NotFound() : Ok(tribune.ToTribuneArticleDto()); 
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Create ([FromBody] CreateTribuneArticleDto tribuneArticleDto)
         {

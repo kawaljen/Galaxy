@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
+using api.Helpers;
 using api.Interfaces;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
@@ -24,9 +25,14 @@ namespace api.Repository
             return tribuneArticleModel;
         }
 
-        public async Task<List<TribuneArticle>> GetAllAsync()
+        public async Task<List<TribuneArticle>> GetAllAsync(QueryObject query)
         {
-            return await _context.TribuneArticle.ToListAsync();
+            var tribunes =  _context.TribuneArticle.AsQueryable();
+
+            if(!string.IsNullOrWhiteSpace(query.Title)){
+                tribunes = tribunes.Where(s=> s.Title.Contains(query.Title));
+            }
+            return await tribunes.ToListAsync();
         }
 
         public async Task<TribuneArticle?> GetByIdAsync(int id)
