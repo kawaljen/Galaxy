@@ -35,6 +35,18 @@ namespace api.Repository
             return planetModel;
         }
 
+        public async Task<Planet?> DeleteAsync(int id)
+        {
+            var planetModel = await _context.Planet.FirstOrDefaultAsync(x=>x.Id == id);
+            if(planetModel ==  null)
+            {
+                return null;
+            }
+            _context.Planet.Remove(planetModel);
+            await  _context.SaveChangesAsync();
+            return planetModel;
+        }
+
         public async Task<List<Planet>> GetAllAsync()
         {
             return await _context.Planet.ToListAsync();

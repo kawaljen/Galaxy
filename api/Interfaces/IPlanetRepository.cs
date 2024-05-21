@@ -16,5 +16,7 @@ namespace api.Interfaces
         Task<Planet> CreateAsync(Planet planetModel);
 
         Task<Planet?> UpdateAsync(int id, UpdatePlanetRequestDto updateDto);
+    
+        Task<Planet?> DeleteAsync(int id);
     }
 }

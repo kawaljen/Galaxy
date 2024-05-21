@@ -23,24 +23,33 @@ namespace api.Controller
         }
         
         [HttpGet]
-        public async Task<IActionResult> Getall(){
-            var planets  = await _planetRepo.GetAllAsync();
+        public async Task<IActionResult> Getall()
+        {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
 
+            var planets  = await _planetRepo.GetAllAsync();
             var planetDto = planets.Select(s=>s.ToPlanetDto());
 
             return planetDto== null ? NotFound() : Ok(planetDto);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById([FromRoute]int id){
-            var planet  = await _planetRepo.GetByIdAsync(id);
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetById([FromRoute]int id)
+        {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
 
+            var planet  = await _planetRepo.GetByIdAsync(id);
             return planet== null ? NotFound() : Ok(planet.ToPlanetDto());
 
         }
         [HttpPost]
         public async Task<IActionResult> Create ([FromBody] CreatePlanetRequestDto planetDto)
         {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var planetModel =   planetDto.ToPlanetFromCreateDto();
             await _planetRepo.CreateAsync(planetModel);
 
@@ -48,11 +57,25 @@ namespace api.Controller
         }
 
         [HttpPut]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdatePlanetRequestDto updateDto)
         {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var planet = await _planetRepo.UpdateAsync(id, updateDto);
             return planet== null ? NotFound() : Ok(planet);
+        }
+
+        [HttpDelete]
+        [Route("{id:int}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+                
+            var planetModel = await _planetRepo.DeleteAsync(id);
+            return planetModel== null ? NotFound() : Ok(planetModel.ToPlanetDto());
         }
     }
 }

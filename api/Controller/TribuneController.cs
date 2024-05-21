@@ -22,22 +22,29 @@ namespace api.Controller
         [HttpGet]
         public async Task<IActionResult> GettAll()
         {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var tribunes = await _tribuneRepo.GetAllAsync();
             var tribunesDto = tribunes.Select(s=>s.ToTribuneArticleDto());
 
             return tribunesDto== null ? NotFound() : Ok(tribunesDto);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById([FromRoute]int id){
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetById([FromRoute]int id)
+        {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
             var tribune  = await _tribuneRepo.GetByIdAsync(id);
-
-
              return tribune== null ? NotFound() : Ok(tribune.ToTribuneArticleDto()); 
         }
+        
         [HttpPost]
         public async Task<IActionResult> Create ([FromBody] CreateTribuneArticleDto tribuneArticleDto)
         {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
             var tribuneArticleModel =   tribuneArticleDto.ToTribuneArticleFromCreateDto();
             await _tribuneRepo.CreateAsync(tribuneArticleModel);
 
